@@ -14,6 +14,8 @@ export default function Home(){
   
   }, [])
 
+  //
+
   return(
     <>
       {pokemons.map(pokemon => (
