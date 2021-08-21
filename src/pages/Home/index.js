@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-
 export default function Home(){
   //para a busca const [pokemonName, setPokemonsNames] = useState("pikachu")
-  const [pokemons, setPomemons ] = useState([])
+  const [pokemons, setPokemons ] = useState([])
+  const [namePoke, setNamePoke ] = useState([])
+  const [imgPoke, setimgPoke] = useState('')
+
+
 
   useEffect(() => {
-    axios.get('https://pokeapi.co/api/v2/pokemon?limit=10&offset=10')
-      .then(response => { setPomemons(response.data.results) })
+    axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=100')
+      .then(function(res) {
+        console.log(res)
+      })    
+  }, [])
+
 
 
   
-  }, [])
 
-  //
 
   return(
     <>
-      {pokemons.map(pokemon => (
-        <li key={pokemon.name}>{pokemon.name}</li>
-      ))}
+      {
+       
+      
+      }
+
+      
     </>
   )
 }
