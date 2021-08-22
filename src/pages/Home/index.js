@@ -1,34 +1,38 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import { getPokemon, getAllPokemon } from '../../services/api'
+
 
 export default function Home(){
-  //para a busca const [pokemonName, setPokemonsNames] = useState("pikachu")
-  const [pokemons, setPokemons ] = useState([])
-  const [namePoke, setNamePoke ] = useState([])
-  const [imgPoke, setimgPoke] = useState('')
-
+  const [pokemonData, setokemonData] = useState([])
+  const pokeURL = 'https://pokeapi.co/api/v2/pokemon'
 
 
   useEffect(() => {
-    axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=100')
-      .then(function(res) {
-        console.log(res)
-      })    
+    async function fetchData() {
+      let response = await getAllPokemon(pokeURL)
+      await loadPokemons(response.results)
+
+    }
+    fetchData()
   }, [])
 
 
-
+  // funcao asincrona que retorna o Promise.all
+  const loadPokemons = async (data) => {
+    let pokemonData = await Promise.all(data.map(async pokemon => {
+      let pokemonRecord = await getPokemon(pokemon)
+      return pokemonRecord
+    }))
+    setokemonData(pokemonData)
+  }
   
 
 
   return(
     <>
       {
-       
-      
+        console.log(pokemonData)
       }
-
-      
     </>
   )
 }
